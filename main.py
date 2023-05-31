@@ -135,21 +135,22 @@ async def skip(ctx: commands.Context):
             return await ctx.send(embed=mbed)
 
 
-@bot.command(name="create_teams6", aliases=['ct6'])
-async def create_teams(ctx: commands.Context, team_length = 1, p1: discord.Member = None, p2: discord.Member = None, 
-                       p3: discord.Member = None, p4: discord.Member = None, p5: discord.Member = None, 
-                       p6: discord.Member = None) -> None:
-        nums = [[p1.avatar.url, p1.name], [p2.avatar.url, p2.name], [p3.avatar.url, p3.name], [p4.avatar.url, p4.name], [p5.avatar.url, p5.name], [p6.avatar.url, p6.name]] 
+@bot.command(name="create_teams", aliases=['ct'])
+async def create_teams(ctx: commands.Context, team_length = 1, *args: discord.Member) -> None: 
+        prelist = list(element for element in args)
+        
+        nums = [[user.avatar.url, user.name] for user in prelist]
+
         team = []
         number = 1
         count = 0
 
         while nums != []: 
-            a = random.choice(nums) 
+            a = random.choice(nums)
             nums.pop(nums.index(a)) 
             team.append(a)
             count += 1
-            if len(team) == team_length:
+            if (len(team) == team_length) or (nums == [] and len(team) != 0):
                 
                 mbed = discord.Embed(title=f"Команда №{number}", color=discord.Color.from_rgb(255, 255, 255))
                 for i in range(0, count):
@@ -162,24 +163,24 @@ async def create_teams(ctx: commands.Context, team_length = 1, p1: discord.Membe
                 count = 0
 
     
-@bot.command(name="create_teams", aliases=['ct'])
-async def create_teams(ctx: commands.Context, people: int, team_length: int):
+# @bot.command(name="create_teams", aliases=['ct'])
+# async def create_teams(ctx: commands.Context, people: int, team_length: int):
 
-        nums = [i for i in range(1, people + 1)]
-        team = []
-        teams = []
+#         nums = [i for i in range(1, people + 1)]
+#         team = []
+#         teams = []
 
-        while nums != []: 
-            a = random.choice(nums) 
-            nums.pop(nums.index(a)) 
-            team.append(a) 
-            if len(team) == team_length: 
-                teams.append(team)
-                team = [] 
-            if (team != team_length) and (nums == []):
-                teams.append(team)
+#         while nums != []: 
+#             a = random.choice(nums) 
+#             nums.pop(nums.index(a)) 
+#             team.append(a) 
+#             if len(team) == team_length: 
+#                 teams.append(team)
+#                 team = [] 
+#             if (team != team_length) and (nums == []):
+#                 teams.append(team)
         
-        await ctx.send(teams)
+#         await ctx.send(teams)
         # await ctx.send(' '.join(create_teams(nums, team_length, team, teams)))
 
 

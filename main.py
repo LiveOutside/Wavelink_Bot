@@ -25,7 +25,7 @@ class Bot(commands.Bot):
 
     async def setup_hook(self) -> None:
 
-        node: wavelink.Node = wavelink.Node(uri='http://localhost:5000', password='gfhfl0rs20')
+        node: wavelink.Node = wavelink.Node(uri='http://localhost:5000', password='PASSWORD')
         await wavelink.NodePool.connect(client=self, nodes=[node])
 
 
@@ -219,7 +219,7 @@ async def gen_img(ctx: commands.Context, message_inp: str):
 
 def start_lavalink():
     try:
-        subprocess.call([r'E:\\Code\\Python\\TeamCreate2\\server_host.bat'])
+        subprocess.call([r'Directory to Lavalink.jar --> .bat'])
     except Exception as e:
         print(e)
 
